@@ -1,11 +1,8 @@
 <template>
 	<div class="card text-center">
-		<img :src="userItem.avatar_url" alt="" class="round-img" />
-		<h3>{{ userItem.login_url }}</h3>
-		<router-link
-			:to="`/user/${userItem.login}`"
-			class="btn btn-dark btn-sm my-1"
-		>
+		<img :src="user.avatar_url" alt="" class="round-img" />
+		<h3>{{ user.login_url }}</h3>
+		<router-link :to="`/user/${user.login}`" class="btn btn-dark btn-sm my-1">
 			More
 		</router-link>
 	</div>
@@ -16,7 +13,7 @@
 		name: 'UserItem',
 
 		props: {
-			userItem: {
+			user: {
 				type: Object,
 				required: true,
 			},

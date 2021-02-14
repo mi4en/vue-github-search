@@ -11,33 +11,35 @@ if (process.env.NODE_ENV !== 'production') {
 	githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
 }
 
-const state = {
-	users: [],
-	loading: false,
-};
-
-const actions = {
-	async searchUsers({ commit }, text) {
-		state.loading = true;
-
-		const res = await axios.get(
-			`https://api.github.com/search/users?q=${text}&client_id=${githubClientId}&client_secret=${githubClientSecret}`,
-		);
-
-		commit('SEARCH_USERS', res.data.items);
-	},
-};
-
-const mutations = {
-	SEARCH_USERS: (users) => {
-		state.users = users;
-		state.loading = false;
-	},
-};
-
-export default {
+const Github = {
 	namespaced: true,
-	state,
-	actions,
-	mutations,
+
+	state: {
+		users: [],
+		loading: false,
+	},
+
+	actions: {
+		async searchUsers({ commit }, text) {
+			const res = await axios.get(
+				`https://api.github.com/search/users?q=${text}&client_id=${githubClientId}&client_secret=${githubClientSecret}`,
+			);
+
+			commit('SEARCH_USERS', res.data.items);
+
+			return res;
+		},
+
+		toggleLoading({ commit }) {
+			commit('TOGGLE_LOADING');
+		},
+	},
+
+	mutations: {
+		SEARCH_USERS: (state, users) => (state.users = users),
+
+		TOGGLE_LOADING: (state) => (state.loading = !state.loading),
+	},
 };
+
+export default Github;

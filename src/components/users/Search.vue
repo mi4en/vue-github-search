@@ -18,6 +18,8 @@
 			Clear
 		</button>
 	</section>
+
+	<Spinner v-if="loading" />
 </template>
 
 <script>
@@ -35,14 +37,17 @@
 			...mapState('Github', ['users', 'loading']),
 		},
 		methods: {
-			...mapActions('Github', ['searchUsers']),
+			...mapActions('Github', ['searchUsers', 'toggleLoading']),
 			async onSubmit() {
-				this.loading = true;
+				this.toggleLoading();
 
 				try {
-					await this.searchUsers(this.text);
+					const res = await this.searchUsers(this.text);
+					console.log(res);
 				} catch (error) {
 					console.error(error);
+				} finally {
+					this.toggleLoading();
 				}
 			},
 		},
