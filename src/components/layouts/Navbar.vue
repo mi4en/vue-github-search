@@ -2,6 +2,7 @@
 	<nav class="navbar bg-primary">
 		<h2>
 			<img src="../../assets/icons/academic-cap.svg" alt="" srcset="" />
+			{{ title }}
 		</h2>
 		<ul>
 			<li>
@@ -15,6 +16,13 @@
 <script>
 	export default {
 		name: 'Navbar',
+		props: {
+			title: {
+				required: true,
+				type: String,
+				default: 'Githuber',
+			},
+		},
 	};
 </script>
 

@@ -14,5 +14,6 @@ module.exports = {
 		indent: [1, 'tab'],
 		indent: 'off',
 		'no-tabs': 0,
+		'no-return-assign': 0,
 	},
 };
