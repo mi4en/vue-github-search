@@ -1,7 +1,7 @@
 <template>
 	<nav class="navbar bg-primary">
 		<h2>
-			<img src="../../assets/icons/academic-cap.svg" alt="" srcset="" />
+			<i class="fab fa-github"></i>
 			{{ title }}
 		</h2>
 		<ul>
@@ -26,9 +26,4 @@
 	};
 </script>
 
-<style scoped>
-	img {
-		height: 34px;
-		width: 34px;
-	}
-</style>
+<style scoped></style>
