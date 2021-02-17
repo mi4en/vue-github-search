@@ -16,6 +16,8 @@ const Github = {
 
 	state: {
 		users: [],
+		user: {},
+		repos: [],
 		loading: false,
 	},
 
@@ -24,7 +26,6 @@ const Github = {
 			const res = await axios.get(
 				`https://api.github.com/search/users?q=${text}&client_id=${githubClientId}&client_secret=${githubClientSecret}`,
 			);
-
 			commit('SEARCH_USERS', res.data.items);
 
 			return res;
@@ -32,6 +33,21 @@ const Github = {
 
 		clearUsers({ commit }) {
 			commit('CLEAR_USERS');
+		},
+
+		async getUser({ commit }, username) {
+			const res = await axios.get(
+				`https://api.github.com/users/${username}?client_id=${githubClientId}&client_secret=${githubClientSecret}`,
+			);
+			commit('GET_USER', res.data);
+		},
+
+		async getUserRepos({ commit }, username) {
+			const res = await axios.get(
+				`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${githubClientId}&client_secret=${githubClientSecret}`,
+			);
+
+			commit('GET_USER_REPOS', res.data);
 		},
 
 		toggleLoading({ commit }) {
@@ -43,6 +59,10 @@ const Github = {
 		SEARCH_USERS: (state, users) => (state.users = users),
 
 		CLEAR_USERS: state => (state.users = []),
+
+		GET_USER: (state, user) => (state.user = user),
+
+		GET_USER_REPOS: (state, repos) => (state.repos = repos),
 
 		TOGGLE_LOADING: state => (state.loading = !state.loading),
 	},
