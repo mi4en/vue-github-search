@@ -30,6 +30,10 @@ const Github = {
 			return res;
 		},
 
+		clearUsers({ commit }) {
+			commit('CLEAR_USERS');
+		},
+
 		toggleLoading({ commit }) {
 			commit('TOGGLE_LOADING');
 		},
@@ -38,7 +42,9 @@ const Github = {
 	mutations: {
 		SEARCH_USERS: (state, users) => (state.users = users),
 
-		TOGGLE_LOADING: (state) => (state.loading = !state.loading),
+		CLEAR_USERS: state => (state.users = []),
+
+		TOGGLE_LOADING: state => (state.loading = !state.loading),
 	},
 };
 

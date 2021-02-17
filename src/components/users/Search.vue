@@ -1,5 +1,7 @@
 <template>
 	<section id="search">
+		<Alert v-if="alertShow" />
+
 		<form @submit.prevent="onSubmit" class="form">
 			<input
 				type="text"
@@ -35,19 +37,25 @@
 		},
 		computed: {
 			...mapState('Github', ['users', 'loading']),
+			...mapState('Alert', ['alertShow']),
 		},
 		methods: {
-			...mapActions('Github', ['searchUsers', 'toggleLoading']),
+			...mapActions('Github', ['searchUsers', 'toggleLoading', 'clearUsers']),
+			...mapActions('Alert', ['setAlert']),
 			async onSubmit() {
-				this.toggleLoading();
-
-				try {
-					const res = await this.searchUsers(this.text);
-					console.log(res);
-				} catch (error) {
-					console.error(error);
-				} finally {
+				if (this.text === '') {
+					this.setAlert({ type: 'light', msg: 'Please enter search term' });
+				} else {
 					this.toggleLoading();
+
+					try {
+						await this.searchUsers(this.text);
+						this.text = '';
+					} catch (error) {
+						console.error(error);
+					} finally {
+						this.toggleLoading();
+					}
 				}
 			},
 		},
