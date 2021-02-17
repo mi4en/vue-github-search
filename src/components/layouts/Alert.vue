@@ -13,9 +13,6 @@
 		computed: {
 			...mapState('Alert', ['alert']),
 		},
-		mounted() {
-			console.log('alert: ', this.alert);
-		},
 	};
 </script>
 

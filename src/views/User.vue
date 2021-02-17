@@ -66,8 +66,6 @@
 			try {
 				await this.getUser(this.$route.params.login);
 				await this.getUserRepos(this.$route.params.login);
-
-				console.log('user: ', this.user);
 			} catch (error) {
 				console.error(error);
 			}
