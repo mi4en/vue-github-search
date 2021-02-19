@@ -1,8 +1,9 @@
 <template>
 	<section id="user">
 		<router-link to="/" class="btn btn-light">Back To Search</router-link>
-		Hireable <i v-if="user.hireable" class="fas fa-check text-success" />
-		<i v-else class="fas fa-check text-success" />
+		Hireable
+		<i v-if="user.hireable" class="fas fa-check text-success" />
+		<i v-else class="fas fa-times-circle text-danger" />
 
 		<div class="card grid-2">
 			<div class="all-center">
@@ -66,6 +67,8 @@
 			try {
 				await this.getUser(this.$route.params.login);
 				await this.getUserRepos(this.$route.params.login);
+
+				console.log('user: ', this.user);
 			} catch (error) {
 				console.error(error);
 			}
